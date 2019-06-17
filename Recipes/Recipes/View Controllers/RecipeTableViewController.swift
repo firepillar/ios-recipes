@@ -8,22 +8,38 @@
 
 import UIKit
 
-class RecipeTableViewController: UITableViewController {
+class RecipeTableViewController: UITableViewController, UISearchResultsUpdating {
+    
+    
+    
+    
+    
+    var mainVC = MainViewController()
     
     var recipes: [Recipe] = [] {
         didSet {
             tableView.reloadData()
         }
     }
-
+    
+    var searchController = UISearchController()
+    
+    var filteredRecipes = [Recipe]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchController = ({
+        let controller = UISearchController(searchResultsController: nil)
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        controller.searchResultsUpdater = self
+        controller.hidesNavigationBarDuringPresentation = false
+        controller.dimsBackgroundDuringPresentation = false
+        tableView.tableHeaderView = controller.searchBar
+        
+            return controller
+        })()
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -31,7 +47,13 @@ class RecipeTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return recipes.count
+//        return recipes.count
+        
+        if (searchController.isActive) {
+            return filteredRecipes.count
+        } else {
+            return recipes.count
+        }
     }
 
     
@@ -39,47 +61,32 @@ class RecipeTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipeCell", for: indexPath)
 
         // Configure the cell...
-        let aRecipe = recipes[indexPath.row]
-        cell.textLabel?.text = aRecipe.name
-
-        return cell
+        
+        if (searchController.isActive) {
+            cell.textLabel?.text = filteredRecipes[indexPath.row].name
+            return cell
+        } else {
+            cell.textLabel?.text = recipes[indexPath.row].name
+            return cell
+        }
+        
+        
+        
+//        let aRecipe = recipes[indexPath.row]
+//        cell.textLabel?.text = aRecipe.name
+//
+//        return cell
     }
     
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    func updateSearchResults(for searchController: UISearchController) {
+        filteredRecipes.removeAll(keepingCapacity: false)
+        
+        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
+        let array = (recipes as NSArray).filtered(using: searchPredicate)
+        filteredRecipes = array as! [Recipe]
+        tableView.reloadData()
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
     private func recipeFor(indexPath: IndexPath) -> Recipe {
         if indexPath.section == 0 {
@@ -90,6 +97,9 @@ class RecipeTableViewController: UITableViewController {
     
     }
 
+    
+   
+    
     
     // MARK: - Navigation
 

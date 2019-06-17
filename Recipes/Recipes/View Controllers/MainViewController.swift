@@ -35,6 +35,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        filteredRecipes = allRecipes
         searchTextField.clearButtonMode = .always
         
         networkClient.fetchRecipes { allRecipes, error in
@@ -68,6 +69,15 @@ class MainViewController: UIViewController {
         
         }
     
+//    func updateSearchResults(for searchController: UISearchController) {
+//        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+//            filteredRecipes = allRecipes.filter { allRecipes in
+//                return allRecipes.name.contains(searchText)
+//            }
+////            let searchBar = searchController.searchBar
+//        recipesTableViewController?.tableView.reloadData()
+//    }
+//}
     
     
     
@@ -87,6 +97,7 @@ class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "RecipeListSegue" {
             recipesTableViewController = (segue.destination as! RecipeTableViewController)
+            recipesTableViewController?.filteredRecipes = filteredRecipes
         }
     }
     
