@@ -18,9 +18,13 @@ class RecipeDetailViewController: UIViewController {
             updateViews()
         }
     }
+    
+    var networkClient: RecipesNetworkClient?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let save = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(editRecipeInstructions))
+        self.navigationItem.rightBarButtonItem = save
         updateViews()
         // Do any additional setup after loading the view.
     }
@@ -33,6 +37,14 @@ class RecipeDetailViewController: UIViewController {
         recipeNameLabel.text = recipe.name
         recipeInstructions.text = recipe.instructions
     }
+    
+    @objc func editRecipeInstructions() {
+        guard let recipe = recipe else { return }
+        print("Editing text")
+        networkClient?.updateRecipe(recipe: recipe, name: recipe.name, instructions: recipeInstructions.text)
+        navigationController?.popViewController(animated: true)
+    }
+
 
     /*
     // MARK: - Navigation

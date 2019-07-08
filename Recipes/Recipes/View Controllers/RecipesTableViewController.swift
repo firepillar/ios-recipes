@@ -28,7 +28,7 @@ class RecipesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return recipes.count
+        return networkClient?.recipes.count ?? recipes.count
     }
 
     
@@ -46,9 +46,9 @@ class RecipesTableViewController: UITableViewController {
     
     private func recipeFor(indexPath: IndexPath) -> Recipe {
         if indexPath.section == 0 {
-            return recipes[indexPath.row]
+            return networkClient?.recipes[indexPath.row] ?? recipes[indexPath.row]
         } else {
-            return recipes[indexPath.row]
+            return networkClient?.recipes[indexPath.row] ?? recipes[indexPath.row]
         }
         
     }
@@ -64,6 +64,7 @@ class RecipesTableViewController: UITableViewController {
         if segue.identifier == "ShowRecipe" {
             guard let recipeDetailVC = segue.destination as? RecipeDetailViewController else { return }
             guard let index = tableView.indexPathForSelectedRow else { return }
+            recipeDetailVC.networkClient = networkClient
             recipeDetailVC.recipe = recipeFor(indexPath: index)
             
         }

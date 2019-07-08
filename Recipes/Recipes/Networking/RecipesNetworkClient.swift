@@ -46,6 +46,21 @@ struct RecipesNetworkClient {
         let fileName = documentDirectory.appendingPathComponent("recipes.plist")
         return fileName
     }
+    mutating func deleteRecipe(remove recipe: Recipe) {
+        if let index = recipes.firstIndex(of: recipe) {
+            recipes.remove(at: index)
+            saveToPersistentStore()
+        }
+    }
+    
+    mutating func updateRecipe(recipe: Recipe, name: String, instructions: String) {
+        
+        deleteRecipe(remove: recipe)
+        let updatedRecipe = Recipe(name: name, instructions: instructions)
+        recipes.append(updatedRecipe)
+        
+        saveToPersistentStore()
+    }
     
     func saveToPersistentStore(){
         guard let url = persistenceURL else { return }
