@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PWU-Px-yaa">
-                                <rect key="frame" x="16" y="96" width="343" height="30"/>
+                                <rect key="frame" x="16" y="104" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -28,7 +28,7 @@
                                 </connections>
                             </textField>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5C8-5N-tAc">
-                                <rect key="frame" x="0.0" y="134" width="375" height="678"/>
+                                <rect key="frame" x="0.0" y="150" width="375" height="662"/>
                                 <connections>
                                     <segue destination="jNL-sX-vRc" kind="embed" identifier="RecipeTableSegue" id="MBN-8V-OXA"/>
                                 </connections>
@@ -37,11 +37,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5C8-5N-tAc" firstAttribute="leading" secondItem="Dsj-oS-qxQ" secondAttribute="leading" id="FmK-CB-n2G"/>
-                            <constraint firstItem="5C8-5N-tAc" firstAttribute="top" secondItem="PWU-Px-yaa" secondAttribute="bottom" constant="8" id="U1f-o0-evr"/>
+                            <constraint firstItem="5C8-5N-tAc" firstAttribute="top" secondItem="PWU-Px-yaa" secondAttribute="bottom" constant="16" id="U1f-o0-evr"/>
                             <constraint firstItem="5C8-5N-tAc" firstAttribute="trailing" secondItem="Dsj-oS-qxQ" secondAttribute="trailing" id="UCy-6E-jva"/>
                             <constraint firstAttribute="bottom" secondItem="5C8-5N-tAc" secondAttribute="bottom" id="Y28-nS-EyI"/>
                             <constraint firstItem="PWU-Px-yaa" firstAttribute="leading" secondItem="Dsj-oS-qxQ" secondAttribute="leading" constant="16" id="poS-kJ-kZF"/>
-                            <constraint firstItem="PWU-Px-yaa" firstAttribute="top" secondItem="Dsj-oS-qxQ" secondAttribute="top" constant="8" id="uKB-Ls-5sO"/>
+                            <constraint firstItem="PWU-Px-yaa" firstAttribute="top" secondItem="Dsj-oS-qxQ" secondAttribute="top" constant="16" id="uKB-Ls-5sO"/>
                             <constraint firstItem="Dsj-oS-qxQ" firstAttribute="trailing" secondItem="PWU-Px-yaa" secondAttribute="trailing" constant="16" id="wdr-bL-l2J"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Dsj-oS-qxQ"/>
@@ -60,7 +60,7 @@
             <objects>
                 <tableViewController id="jNL-sX-vRc" customClass="RecipesTableViewController" customModule="Recipes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4a3-37-36L">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="678"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="662"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -100,11 +100,11 @@
             <objects>
                 <viewController id="aio-Np-Gyi" customClass="RecipeDetailViewController" customModule="Recipes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sLG-gw-fK9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="678"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="662"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1Vj-wU-w3R">
-                                <rect key="frame" x="20" y="99" width="335" height="545"/>
+                                <rect key="frame" x="20" y="99" width="335" height="529"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

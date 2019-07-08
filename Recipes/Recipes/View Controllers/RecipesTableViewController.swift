@@ -10,6 +10,7 @@ import UIKit
 
 class RecipesTableViewController: UITableViewController {
 
+    var networkClient: RecipesNetworkClient?
     
     var recipes: [Recipe] = [] {
         didSet {
@@ -19,7 +20,7 @@ class RecipesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        recipes = networkClient?.recipes ?? []
    
     }
 

@@ -12,23 +12,27 @@ class MainViewController: UIViewController {
     
     @IBOutlet var searchTextField: UITextField!
     
-    let networkClient = RecipesNetworkClient()
+    var networkClient = RecipesNetworkClient()
     
     var allRecipes: [Recipe] = [] {
         didSet {
             filterRecipes()
+            saveRecipes(recipes: self.allRecipes)
+            
         }
     }
     
     var recipesTableViewController: RecipesTableViewController? {
         didSet {
             self.recipesTableViewController?.recipes = filteredRecipes
+            networkClient.recipes = filteredRecipes
         }
     }
     
     var filteredRecipes: [Recipe] = [] {
         didSet {
             recipesTableViewController?.recipes = self.filteredRecipes
+            networkClient.recipes = self.filteredRecipes
         }
     }
     
@@ -43,7 +47,9 @@ class MainViewController: UIViewController {
             }
             
             DispatchQueue.main.async {
+                
                 self.allRecipes = allRecipes ?? []
+                
             }
             
             
@@ -67,6 +73,12 @@ class MainViewController: UIViewController {
         } else {
             filteredRecipes = allRecipes.filter { $0.name.contains(searchTerm) || $0.instructions.contains(searchTerm) }
         }
+        
+    }
+    
+    func saveRecipes(recipes: [Recipe]) {
+        networkClient.recipes = recipes
+        networkClient.saveToPersistentStore()
         
     }
     
