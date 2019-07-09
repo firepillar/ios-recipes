@@ -39,21 +39,31 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        networkClient.fetchRecipes { allRecipes, error in
-            
-            if let error = error {
-                let errorText: () = NSLog("Error fetching recipes: \(error)")
-                return errorText
-            }
-            
-            DispatchQueue.main.async {
+        if let persistenceURL = networkClient.persistenceURL {
+            let nsDictionary = NSDictionary(contentsOf: persistenceURL)
                 
-                self.allRecipes = allRecipes ?? []
+            if nsDictionary != nil {
+                networkClient.loadFromPersistentStore()
                 
+            } else {
+                networkClient.fetchRecipes { allRecipes, error in
+                    
+                    if let error = error {
+                        let errorText: () = NSLog("Error fetching recipes: \(error)")
+                        return errorText
+                    }
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.allRecipes = allRecipes ?? []
+                        self.networkClient.saveToPersistentStore()
+                        
+                    }
+                    
+                    
+                    
+                }
             }
-            
-            
-            
         }
         // Do any additional setup after loading the view.
     }

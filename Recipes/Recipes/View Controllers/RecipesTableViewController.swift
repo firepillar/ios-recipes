@@ -64,7 +64,7 @@ class RecipesTableViewController: UITableViewController {
         if segue.identifier == "ShowRecipe" {
             guard let recipeDetailVC = segue.destination as? RecipeDetailViewController else { return }
             guard let index = tableView.indexPathForSelectedRow else { return }
-            recipeDetailVC.networkClient = networkClient
+        
             recipeDetailVC.recipe = recipeFor(indexPath: index)
             
         }

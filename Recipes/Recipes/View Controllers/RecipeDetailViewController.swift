@@ -19,7 +19,7 @@ class RecipeDetailViewController: UIViewController {
         }
     }
     
-    var networkClient: RecipesNetworkClient?
+    var networkClient = RecipesNetworkClient()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +41,7 @@ class RecipeDetailViewController: UIViewController {
     @objc func editRecipeInstructions() {
         guard let recipe = recipe else { return }
         print("Editing text")
-        networkClient?.updateRecipe(recipe: recipe, name: recipe.name, instructions: recipeInstructions.text)
+        networkClient.updateRecipe(recipe: recipe, name: recipe.name, instructions: recipeInstructions.text)
         navigationController?.popViewController(animated: true)
     }
 

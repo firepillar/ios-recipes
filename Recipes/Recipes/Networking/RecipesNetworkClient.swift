@@ -32,6 +32,7 @@ struct RecipesNetworkClient {
             
             do {
                 let recipes = try JSONDecoder().decode([Recipe].self, from: data)
+                print("fetching data")
                 completion(recipes, nil)
             } catch {
                 completion(nil, error)
@@ -46,6 +47,7 @@ struct RecipesNetworkClient {
         let fileName = documentDirectory.appendingPathComponent("recipes.plist")
         return fileName
     }
+    
     mutating func deleteRecipe(remove recipe: Recipe) {
         if let index = recipes.firstIndex(of: recipe) {
             recipes.remove(at: index)
@@ -86,6 +88,7 @@ struct RecipesNetworkClient {
             let data = try Data(contentsOf: url)
             let loadedRecipes = try decoder.decode([Recipe].self, from: data)
             recipes = loadedRecipes
+            print("loading data from store")
         } catch  {
             print("Error with plistencoder: \(error)")
             return
